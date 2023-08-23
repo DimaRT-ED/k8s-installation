@@ -12,13 +12,9 @@ sudo ufw allow 80/tcp;
 
 sudo ufw allow 443/tcp;
 
-sudo ufw allow 2379:2380/tcp; #Opens ports for etcd, the distributed key-value store used by Kubernetes.
+sudo ufw allow 10250/tcp # Opens port for the Kubelet API.
 
-sudo ufw allow 10250/tcp; #Opens port for the Kubelet API.
-
-sudo ufw allow 10251/tcp; #Opens port for the Kube-scheduler.
-
-sudo ufw allow 10252/tcp; #Opens port for the Kube-controller-manager.
+sudo ufw allow 30000:32767/tcp # Opens ports for NodePort services.
 
 sudo ufw reload; #Reloads the firewall to apply the rules.
 
@@ -53,4 +49,3 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin;
 sudo usermod -aG docker $USER;
 
 echo "Reboot i 5 sec....."; sleep 5; sudo reboot;
-
