@@ -14,21 +14,21 @@ To build Master Node run the 2 scripts like this:
 ./K8S-MasterSetup1.sh
 ```
 It reboots the server, wait for the server to come back up and run:
-'''sh
+```sh
 ./K8S-MasterSetup2.sh
-'''
+```
 # Install Worker Node
 To build a Worker Node run the 2 scripts like this:
-'''sh
+```sh
 ./K8S-WorkerSetup1.sh
-'''
+```
 It reboots the server, wait for the server to come back up and run:
-'''sh
+```sh
 ./K8S-WorkerSetup2.sh
-'''
+```
 # Initialize the Node
 If you use virtual machines there are times when there are communication problems, to solve this reboot the server by running the script:
-'''sh
+```sh
 ./Initialize-Node
-'''
+```
 Read the explanation before selecting the Node to enter as input to the script.
