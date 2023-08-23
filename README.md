@@ -10,9 +10,9 @@
 
 # Master Node installation
 To build Master Node run the 2 scripts like this:
-'''sh
+```sh
 ./K8S-MasterSetup1.sh
-'''
+```
 It reboots the server, wait for the server to come back up and run:
 '''sh
 ./K8S-MasterSetup2.sh
