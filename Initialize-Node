@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Displaying the purpose of the script to the user
+echo "This script is designed to initialize the Kubernetes Node."
+echo "If you had a communication problem, you can choose to initialize the Master Node or the Worker Node."
+echo "If you initialize the Master Node, you'll also need to initialize the Worker Node."
+echo "If you choose the Worker Node, you will need to access the Master Node to get connection keys."
+echo "After obtaining the connection keys from the Master Node using the 'kubeadm token create --print-join-command',"
+echo "you will return to the Worker Node, prefix the command with 'sudo', and append the flag '--cri-socket=unix:///var/run/cri-dockerd.sock'."
+echo "For example:"
+echo "sudo kubeadm join 192.168.0.10:6443 --token nzy73q.3s2ig8r2ue09wrjy \\"
+echo "--discovery-token-ca-cert-hash sha256:0866420e1833c5a0710c92712d56468b4576b8bd8f00c381232dd993d89a0246 --cri-socket=unix:///var/run/cri-dockerd.sock"
+echo ""
+echo "Choose the node to initialize (master/worker):"
+read choice
+
+# Based on user choice, run the corresponding commands
+if [ "$choice" == "master" ]; then
+    echo "Initializing Master Node...";
+    sudo kubeadm reset --cri-socket=/var/run/cri-dockerd.sock;
+    sudo rm -r  ~/.kube;
+    sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --cri-socket=unix:///var/run/cri-dockerd.sock;
+    mkdir -p $HOME/.kube;
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config;
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config;
+    kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml;
+    echo "Master Node initialized!";
+elif [ "$choice" == "worker" ]; then
+    echo "Initializing Worker Node...";
+    sudo kubeadm reset --cri-socket=/var/run/cri-dockerd.sock;
+    sudo rm -r ~/.kube 2>/dev/null; # Suppressing error if directory doesn't exist
+    echo "Worker Node initialized! Please get the 'kubeadm join' command from the Master Node.";
+else
+    echo "Invalid choice!";
+fi
