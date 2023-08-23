@@ -4,17 +4,16 @@ sudo apt update;
 
 sudo apt install -y ca-certificates curl gnupg lsb-release;
 
-sudo ufw enable;
+# sudo ufw allow from [MASTER_NODE_IP] to any port 10250 proto tcp
+sudo ufw allow 30000:32767/tcp;
 
-sudo ufw allow 22/tcp;
+sudo ufw allow 30000:32767/udp;
 
-sudo ufw allow 80/tcp;
+sudo ufw allow 10256/tcp;
 
-sudo ufw allow 443/tcp;
+sudo ufw allow 10250/tcp; # Opens port for the Kubelet API.
 
-sudo ufw allow 10250/tcp # Opens port for the Kubelet API.
-
-sudo ufw allow 30000:32767/tcp # Opens ports for NodePort services.
+sudo ufw allow 30000:32767/tcp; # Opens ports for NodePort services.
 
 sudo ufw reload; #Reloads the firewall to apply the rules.
 
