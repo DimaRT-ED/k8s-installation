@@ -17,7 +17,7 @@ It reboots the server, wait for the server to come back up and run:
 ```sh
 ./K8S-MasterSetup2.sh
 ```
-# Install Worker Node
+# Worker Node installation
 To build a Worker Node run the 2 scripts like this:
 ```sh
 ./K8S-WorkerSetup1.sh
