@@ -4,13 +4,7 @@ sudo apt update;
 
 sudo apt install -y ca-certificates curl gnupg lsb-release;
 
-sudo ufw enable;
-
-sudo ufw allow 22/tcp;
-
-sudo ufw allow 80/tcp;
-
-sudo ufw allow 443/tcp;
+#sudo ufw allow from [WORKER_NODE_IP] to any port 6443 proto TCP
 
 sudo ufw allow 2379:2380/tcp; #Opens ports for etcd, the distributed key-value store used by Kubernetes.
 
